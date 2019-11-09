@@ -1,5 +1,6 @@
 import puppeteer from 'puppeteer';
 import Config from './Config.js';
+import ResultsParser from './ResultsParser';
 
 export default class ResultsScraper {
   constructor() {

@@ -1,17 +1,18 @@
 
+import Config from './Config.js';
 import BrowserContext from './BrowserContext.js';
 
-export default class PdfSivParser {
-  constructor(storage) {
-    // don't overuse constructor, save for initiate function
-  }
+export default class ResultsParser {
+  // constructor() {
+  //   // don't overuse constructor, save for initiate function
+  // }
 
   async exposeHelperFuncs(page) {
     // expose function the can be called in the browser context
     const onDocEvent = this.onDocEvent.bind(this);
     await page.exposeFunction('onDocEvent', onDocEvent);
 
-    const { doConsoleLog } = PdfSivParser;
+    const { doConsoleLog } = ResultsParser;
     await page.exposeFunction('doConsoleLog', doConsoleLog);
   }
 
@@ -61,13 +62,11 @@ export default class PdfSivParser {
 
   async getPageSpanElements(pageNumber) {
     const selector = `.page[data-page-number="${pageNumber}"] > .textLayer > span`;
-    const elements = await this.page.$$eval(selector, (e) => e.map((el) => {
-      return {
-        tagName: el.tagName,
-        className: el.className,
-        innerText: el.innerText,
-      };
-    }));
+    const elements = await this.page.$$eval(selector, (e) => e.map((el) => ({
+      tagName: el.tagName,
+      className: el.className,
+      innerText: el.innerText,
+    })));
     return elements;
   }
 
@@ -101,5 +100,5 @@ export default class PdfSivParser {
     await new Promise((resolve) => {
       this.storage.emitter.on('readyToParse', resolve);
     });
-  } 
+  }
 }

@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 import Config from './Config.js';
-import ResultsParser from './ResultsParser';
+import ResultsParser from './ResultsParser.js';
 
 export default class ResultsScraper {
   constructor() {
@@ -14,14 +14,15 @@ export default class ResultsScraper {
   async initPuppeteer() {
     console.log('Launching puppeteer');
     this.browser = await puppeteer.launch(Config.puppeteerConfig);
-    [this.page] = await this.browser.pages();
-    return this.page;
+    let myPage = 'undefine';
+    [myPage] = await this.browser.pages();
+    return myPage;
   }
 
   async start() {
     this.page = await this.initPuppeteer();
     const parser = await ResultsParser.createParser(this.page);
-    await parser.parseResults();
+    await parser.performParse();
     await this.cleanUp();
     console.log('All done. End.');
   }

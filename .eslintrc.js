@@ -23,6 +23,7 @@ module.exports = {
     "no-prototype-builtins": "off",
     "no-param-reassign": ["error", { "props": false }],
     "import/extensions": ["error", "ignorePackages"],
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "operator-linebreak": "off",
   }
 };

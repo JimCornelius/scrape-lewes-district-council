@@ -185,9 +185,6 @@ export default class ResultsParser {
       let oldBound = { top: null, bottom: null };
       for (const fieldBloc of fields) {
         const field = fieldBloc.innerText;
-        if (field.includes('CATLIN')) {
-          const debug = 99;
-        }
         if (votesReady) {
           const numb = field.replace('(Elected)', '').trim();
           const n = Number(numb.replace(',', ''));
